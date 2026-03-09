@@ -1,0 +1,2361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tejas Patil | Software Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== RESET & BASE ===== */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a2e;
+            --bg-card-hover: #1f1f35;
+            --accent: #00d4ff;
+            --accent-2: #7b2fff;
+            --accent-3: #ff6b35;
+            --accent-glow: rgba(0, 212, 255, 0.15);
+            --text-primary: #e8e8f0;
+            --text-secondary: #9898b0;
+            --text-muted: #5a5a78;
+            --border: #2a2a40;
+            --gradient-1: linear-gradient(135deg, #00d4ff, #7b2fff);
+            --gradient-2: linear-gradient(135deg, #7b2fff, #ff6b35);
+            --gradient-3: linear-gradient(135deg, #00d4ff, #00ff88);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+        /* ===== CURSOR GLOW ===== */
+        .cursor-glow {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            pointer-events: none;
+            background: radial-gradient(circle, rgba(0,212,255,0.06) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            transition: opacity 0.3s;
+        }
+
+        /* ===== NAVBAR ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            backdrop-filter: blur(20px);
+            background: rgba(10, 10, 15, 0.8);
+            border-bottom: 1px solid rgba(42, 42, 64, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 0.6rem 2rem;
+            background: rgba(10, 10, 15, 0.95);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-1);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--accent); }
+        .nav-links a:hover::after { width: 100%; }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 4px;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: all 0.3s;
+        }
+
+        /* ===== SECTIONS ===== */
+        section {
+            position: relative;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-header {
+            margin-bottom: 4rem;
+            text-align: center;
+        }
+
+        .section-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 0.8rem;
+            display: block;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .section-line {
+            width: 60px;
+            height: 3px;
+            background: var(--gradient-1);
+            margin: 1rem auto 0;
+            border-radius: 2px;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg-image {
+            position: absolute;
+            inset: 0;
+            background: url('images/car.jpg') center/cover no-repeat;
+            opacity: 0.12;
+            z-index: 0;
+            filter: blur(2px);
+        }
+
+        /* Particle canvas */
+        #particles-canvas {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        /* CAN Bus animated lines */
+        .can-bus-lines {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .can-line {
+            position: absolute;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            opacity: 0.15;
+            animation: canFlow 8s linear infinite;
+        }
+
+        @keyframes canFlow {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100vw); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(0, 212, 255, 0.08);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: var(--accent);
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .hero-badge .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: #00ff88;
+            border-radius: 50%;
+            animation: pulse 2s ease infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.5); }
+        }
+
+        .hero-name {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            letter-spacing: -3px;
+            line-height: 1.05;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .hero-name .gradient-text {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-tagline {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 0.6s both;
+        }
+
+        .btn {
+            padding: 0.85rem 2rem;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--gradient-1);
+            color: #fff;
+            box-shadow: 0 4px 25px rgba(0, 212, 255, 0.25);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 35px rgba(0, 212, 255, 0.35);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent);
+            background: var(--accent-glow);
+            transform: translateY(-2px);
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 4rem;
+            animation: fadeInUp 0.8s ease 0.8s both;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ===== ABOUT ===== */
+        .about {
+            padding: 8rem 0;
+            background: var(--bg-secondary);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-visual {
+            position: relative;
+        }
+
+        .ecu-diagram {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ecu-diagram::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 20%;
+            right: 20%;
+            height: 2px;
+            background: var(--gradient-1);
+        }
+
+        .ecu-header {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            opacity: 0.7;
+        }
+
+        .ecu-nodes {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .ecu-node {
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.1);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.3s;
+            animation: nodePulse 3s ease infinite;
+        }
+
+        .ecu-node:nth-child(2) { animation-delay: 0.5s; }
+        .ecu-node:nth-child(3) { animation-delay: 1s; }
+        .ecu-node:nth-child(4) { animation-delay: 1.5s; }
+
+        @keyframes nodePulse {
+            0%, 100% { border-color: rgba(0, 212, 255, 0.1); }
+            50% { border-color: rgba(0, 212, 255, 0.3); }
+        }
+
+        .ecu-node:hover {
+            background: rgba(0, 212, 255, 0.1);
+            border-color: var(--accent);
+            transform: scale(1.03);
+        }
+
+        .ecu-node-icon {
+            font-size: 1.8rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .ecu-node-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .ecu-bus-label {
+            text-align: center;
+            margin-top: 1.2rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            position: relative;
+        }
+
+        .ecu-bus-label::before {
+            content: '';
+            display: block;
+            width: 80%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            margin: 0 auto 0.5rem;
+            animation: busPulse 2s ease infinite;
+        }
+
+        @keyframes busPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            letter-spacing: -0.5px;
+        }
+
+        .about-text p {
+            color: var(--text-secondary);
+            margin-bottom: 1.2rem;
+            font-size: 0.95rem;
+        }
+
+        .about-highlights {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.8rem;
+            margin-top: 1.5rem;
+        }
+
+        .highlight-item {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .highlight-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+            flex-shrink: 0;
+        }
+
+        /* ===== SKILLS ===== */
+        .skills {
+            padding: 8rem 0;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-category {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-category::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-1);
+            transform: scaleX(0);
+            transition: transform 0.4s;
+        }
+
+        .skill-category:nth-child(2)::before { background: var(--gradient-2); }
+        .skill-category:nth-child(3)::before { background: var(--gradient-3); }
+
+        .skill-category:hover {
+            border-color: transparent;
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .skill-category:hover::before { transform: scaleX(1); }
+
+        .skill-cat-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .skill-cat-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background: rgba(0, 212, 255, 0.06);
+            border: 1px solid rgba(0, 212, 255, 0.12);
+            padding: 0.35rem 0.8rem;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            transition: all 0.3s;
+        }
+
+        .skill-tag:hover {
+            background: rgba(0, 212, 255, 0.12);
+            color: var(--accent);
+            border-color: rgba(0, 212, 255, 0.3);
+        }
+
+        .cert-badges {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .cert-badge {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            transition: all 0.3s;
+        }
+
+        .cert-badge:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .cert-icon {
+            font-size: 1.5rem;
+        }
+
+        .cert-info {
+            text-align: left;
+        }
+
+        .cert-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .cert-org {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* ===== EXPERIENCE ===== */
+        .experience {
+            padding: 8rem 0;
+            background: var(--bg-secondary);
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--accent), var(--accent-2), var(--accent-3));
+            opacity: 0.3;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 80px;
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateX(-20px);
+            animation: slideInLeft 0.6s ease forwards;
+        }
+
+        .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.3s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.5s; }
+
+        @keyframes slideInLeft {
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 22px;
+            top: 8px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--bg-primary);
+            border: 3px solid var(--accent);
+            z-index: 1;
+        }
+
+        .timeline-item:nth-child(2) .timeline-dot { border-color: var(--accent-2); }
+        .timeline-item:nth-child(3) .timeline-dot { border-color: var(--accent-3); }
+
+        .timeline-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+
+        .timeline-card:hover {
+            border-color: rgba(0, 212, 255, 0.2);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-role {
+            font-size: 1.15rem;
+            font-weight: 700;
+        }
+
+        .timeline-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--accent);
+            background: rgba(0, 212, 255, 0.08);
+            padding: 0.3rem 0.8rem;
+            border-radius: 6px;
+            white-space: nowrap;
+        }
+
+        .timeline-company {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.3rem;
+        }
+
+        .timeline-location {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .timeline-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-tech span {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.6rem;
+            background: rgba(123, 47, 255, 0.1);
+            border: 1px solid rgba(123, 47, 255, 0.2);
+            border-radius: 6px;
+            color: #b388ff;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .timeline-points {
+            list-style: none;
+        }
+
+        .timeline-points li {
+            position: relative;
+            padding-left: 1.2rem;
+            margin-bottom: 0.6rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .timeline-points li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        /* ===== PROJECTS ===== */
+        .projects {
+            padding: 8rem 0;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s;
+            position: relative;
+        }
+
+        .project-card:hover {
+            transform: translateY(-6px);
+            border-color: transparent;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.35);
+        }
+
+        .project-visual {
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-visual-bp {
+            background: linear-gradient(135deg, #0a1628 0%, #1a2744 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .project-visual-ecu {
+            background: linear-gradient(135deg, #1a0a28 0%, #2a1444 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Animated SVG illustrations */
+        .project-svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Brake pressure wave animation */
+        .wave-line {
+            fill: none;
+            stroke: var(--accent);
+            stroke-width: 2;
+            animation: waveMove 3s ease-in-out infinite;
+        }
+
+        .wave-line:nth-child(2) {
+            stroke: rgba(0, 212, 255, 0.4);
+            animation-delay: 0.3s;
+        }
+
+        .wave-line:nth-child(3) {
+            stroke: rgba(0, 212, 255, 0.2);
+            animation-delay: 0.6s;
+        }
+
+        @keyframes waveMove {
+            0%, 100% { d: path("M 0 100 Q 60 60 120 100 T 240 100 T 360 100 T 480 100"); }
+            50% { d: path("M 0 100 Q 60 140 120 100 T 240 100 T 360 100 T 480 100"); }
+        }
+
+        /* ECU node network animation */
+        .ecu-net-node {
+            fill: var(--accent-2);
+            animation: ecnPulse 2s ease infinite;
+        }
+
+        .ecu-net-node:nth-child(even) { animation-delay: 0.5s; }
+
+        .ecu-net-line {
+            stroke: rgba(123, 47, 255, 0.3);
+            stroke-width: 1;
+            animation: ecnLine 3s ease infinite;
+        }
+
+        @keyframes ecnPulse {
+            0%, 100% { r: 4; opacity: 0.7; }
+            50% { r: 6; opacity: 1; }
+        }
+
+        @keyframes ecnLine {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.6; }
+        }
+
+        .project-body {
+            padding: 1.8rem;
+        }
+
+        .project-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+        }
+
+        .project-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.2rem;
+            line-height: 1.7;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .project-tags span {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.65rem;
+            background: rgba(0, 212, 255, 0.06);
+            border: 1px solid rgba(0, 212, 255, 0.12);
+            border-radius: 6px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Research publication card */
+        .publication-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-top: 2rem;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            transition: all 0.3s;
+        }
+
+        .publication-card:hover {
+            border-color: rgba(0, 212, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .pub-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--accent-3);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.8rem;
+        }
+
+        .pub-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
+        }
+
+        .pub-venue {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* ===== EDUCATION ===== */
+        .education {
+            padding: 8rem 0;
+            background: var(--bg-secondary);
+        }
+
+        .edu-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .edu-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .edu-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+        }
+
+        .edu-card:first-child::before { background: var(--gradient-1); }
+        .edu-card:last-child::before { background: var(--gradient-2); }
+
+        .edu-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(0, 212, 255, 0.2);
+        }
+
+        .edu-degree {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+
+        .edu-school {
+            color: var(--accent);
+            font-size: 0.95rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .edu-location {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 0.2rem;
+        }
+
+        .edu-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .edu-gpa {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--accent);
+            margin-top: 0.5rem;
+            font-weight: 600;
+        }
+
+        .edu-coursework {
+            margin-top: 0.8rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .edu-coursework span {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.55rem;
+            background: rgba(0, 212, 255, 0.06);
+            border: 1px solid rgba(0, 212, 255, 0.12);
+            border-radius: 6px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* ===== ADDITIONAL PROJECTS GRID ===== */
+        .projects-grid-small {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card-small {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card-small::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gradient-1);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .project-card-small:nth-child(2)::before { background: var(--gradient-2); }
+        .project-card-small:nth-child(3)::before { background: var(--gradient-3); }
+        .project-card-small:nth-child(4)::before { background: var(--gradient-1); }
+
+        .project-card-small:hover {
+            border-color: rgba(0, 212, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        .project-card-small:hover::before { transform: scaleX(1); }
+
+        .project-small-icon {
+            font-size: 1.6rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .project-small-title {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+        }
+
+        .project-small-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-bottom: 0.6rem;
+        }
+
+        .project-small-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.8rem;
+            line-height: 1.6;
+        }
+
+        .project-small-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+        }
+
+        .project-small-tags span {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            background: rgba(123, 47, 255, 0.08);
+            border: 1px solid rgba(123, 47, 255, 0.15);
+            border-radius: 5px;
+            color: #b388ff;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* ===== LANGUAGES & VOLUNTEER ===== */
+        .extras {
+            padding: 6rem 0;
+        }
+
+        .extras-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .extras-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .extras-card:hover {
+            border-color: rgba(0, 212, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .extras-card-icon {
+            font-size: 1.8rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .extras-card-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: var(--accent);
+        }
+
+        .extras-item {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.4rem;
+        }
+
+        .extras-item-sub {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        @media (max-width: 768px) {
+            .extras-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ===== CONTACT ===== */
+        .contact {
+            padding: 8rem 0;
+            text-align: center;
+        }
+
+        .contact-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            margin-top: 1rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.3s;
+            min-width: 200px;
+        }
+
+        .contact-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 212, 255, 0.08);
+            border-radius: 12px;
+        }
+
+        .contact-info {
+            text-align: left;
+        }
+
+        .contact-info-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .contact-info-value {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+
+        footer p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .footer-code {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-secondary);
+        }
+
+        /* ===== PHOTO GALLERY ===== */
+        .gallery {
+            padding: 6rem 0;
+            overflow: hidden;
+        }
+
+        .gallery-scroll {
+            display: flex;
+            gap: 1.5rem;
+            animation: scrollGallery 30s linear infinite;
+            width: max-content;
+        }
+
+        .gallery-scroll:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes scrollGallery {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .gallery-item {
+            position: relative;
+            min-width: 320px;
+            height: 220px;
+            border-radius: 16px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s, filter 0.5s;
+            filter: brightness(0.7) saturate(0.8);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
+            filter: brightness(0.9) saturate(1);
+        }
+
+        .gallery-item-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 40%, rgba(10, 10, 15, 0.9) 100%);
+            display: flex;
+            align-items: flex-end;
+            padding: 1.2rem;
+        }
+
+        .gallery-item-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .gallery-item-sub {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* About section image */
+        .about-image-wrapper {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-image-wrapper img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            filter: brightness(0.6) saturate(0.8);
+            transition: all 0.4s;
+        }
+
+        .about-image-wrapper:hover img {
+            filter: brightness(0.8) saturate(1);
+            transform: scale(1.03);
+        }
+
+        .about-image-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(123, 47, 255, 0.1));
+            pointer-events: none;
+        }
+
+        /* Experience section images */
+        .timeline-image {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            filter: brightness(0.5) saturate(0.7);
+            transition: all 0.4s;
+        }
+
+        .timeline-card:hover .timeline-image {
+            filter: brightness(0.7) saturate(0.9);
+        }
+
+        /* Project card image backgrounds */
+        .project-visual img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.2;
+            transition: opacity 0.4s;
+        }
+
+        .project-card:hover .project-visual img {
+            opacity: 0.35;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(10, 10, 15, 0.98);
+                padding: 1.5rem 2rem;
+                border-bottom: 1px solid var(--border);
+                gap: 1rem;
+            }
+            .hamburger { display: flex; }
+            .about-grid { grid-template-columns: 1fr; }
+            .edu-grid { grid-template-columns: 1fr; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .hero-stats { gap: 1.5rem; }
+            .stat-number { font-size: 1.5rem; }
+            .about-highlights { grid-template-columns: 1fr; }
+            .skills-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-name { letter-spacing: -1.5px; }
+            .contact-links { flex-direction: column; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cursor Glow -->
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">TP</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-bg-image"></div>
+        <canvas id="particles-canvas"></canvas>
+        <!-- CAN Bus animated lines -->
+        <div class="can-bus-lines">
+            <div class="can-line" style="top:20%; width:60%; animation-duration:6s;"></div>
+            <div class="can-line" style="top:40%; width:80%; animation-duration:8s; animation-delay:1s;"></div>
+            <div class="can-line" style="top:60%; width:50%; animation-duration:7s; animation-delay:2s;"></div>
+            <div class="can-line" style="top:80%; width:70%; animation-duration:9s; animation-delay:0.5s;"></div>
+        </div>
+
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="pulse-dot"></span>
+                Open to Opportunities
+            </div>
+            <h1 class="hero-name">
+                Tejas <span class="gradient-text">Patil</span>
+            </h1>
+            <p class="hero-tagline">
+                Software Engineer specializing in <strong style="color:var(--accent)">Automotive Diagnostics</strong>,
+                <strong style="color:var(--accent-2)">ECU Validation</strong> &amp;
+                <strong style="color:var(--accent-3)">Cloud Infrastructure</strong> &mdash;
+                with 10+ projects &amp; 2 publications
+            </p>
+            <div class="hero-cta">
+                <a href="#contact" class="btn btn-primary">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    Get In Touch
+                </a>
+                <a href="#experience" class="btn btn-outline">
+                    View My Work
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7.8H7.8"/></svg>
+                </a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number" data-count="3">0</div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-count="20">0</div>
+                    <div class="stat-label">ECUs Validated</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-count="10">0</div>
+                    <div class="stat-label">Projects Built</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Photo Gallery - Infinite Scroll -->
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">// The World I Work In</span>
+                <h2 class="section-title">Automotive &amp; Embedded Systems</h2>
+                <div class="section-line"></div>
+            </div>
+        </div>
+        <div class="gallery-scroll">
+            <div class="gallery-item">
+                <img src="images/circuit-board.jpg" alt="ECU Circuit Board" loading="lazy">
+                <div class="gallery-item-overlay">
+                    <div>
+                        <div class="gallery-item-label">ECU Circuit Boards</div>
+                        <div class="gallery-item-sub">Embedded Hardware</div>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="images/engine.jpg" alt="Car Engine" loading="lazy">
+                <div class="gallery-item-overlay">
+                    <div>
+                        <div class="gallery-item-label">Engine Systems</div>
+                        <div class="gallery-item-sub">Powertrain Diagnostics</div>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="images/car.jpg" alt="Vehicles" loading="lazy">
+                <div class="gallery-item-overlay">
+                    <div>
+                        <div class="gallery-item-label">Vehicle Platforms</div>
+                        <div class="gallery-item-sub">Passenger &amp; Heavy-Duty</div>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="images/microchip.jpg" alt="Microcontrollers" loading="lazy">
+                <div class="gallery-item-overlay">
+                    <div>
+                        <div class="gallery-item-label">Embedded Components</div>
+                        <div class="gallery-item-sub">Microcontrollers &amp; Sensors</div>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="images/dashboard.jpg" alt="Modern Vehicle" loading="lazy">
+                <div class="gallery-item-overlay">
+                    <div>
+                        <div class="gallery-item-label">Modern Automotive</div>
+                        <div class="gallery-item-sub">ADAS &amp; Vehicle Control</div>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="images/server-room.jpg" alt="Cloud Infrastructure" loading="lazy">
+                <div class="gallery-item-overlay">
+                    <div>
+                        <div class="gallery-item-label">Cloud Infrastructure</div>
+                        <div class="gallery-item-sub">AWS &amp; Azure DevOps</div>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="images/drone.jpg" alt="UAV Drone" loading="lazy">
+                <div class="gallery-item-overlay">
+                    <div>
+                        <div class="gallery-item-label">Autonomous Systems</div>
+                        <div class="gallery-item-sub">UAV Swarm Research</div>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="images/autonomous.jpg" alt="Autonomous Vehicle" loading="lazy">
+                <div class="gallery-item-overlay">
+                    <div>
+                        <div class="gallery-item-label">Smart Vehicles</div>
+                        <div class="gallery-item-sub">Connected Car Systems</div>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="images/assembly.jpg" alt="Vehicle Assembly Line" loading="lazy">
+                <div class="gallery-item-overlay">
+                    <div>
+                        <div class="gallery-item-label">Assembly Line</div>
+                        <div class="gallery-item-sub">End-of-Line Manufacturing</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Duplicate set for infinite scroll effect -->
+            <div class="gallery-item">
+                <img src="images/circuit-board.jpg" alt="ECU Circuit Board" loading="lazy">
+                <div class="gallery-item-overlay">
+                    <div>
+                        <div class="gallery-item-label">ECU Circuit Boards</div>
+                        <div class="gallery-item-sub">Embedded Hardware</div>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="images/engine.jpg" alt="Car Engine" loading="lazy">
+                <div class="gallery-item-overlay">
+                    <div>
+                        <div class="gallery-item-label">Engine Systems</div>
+                        <div class="gallery-item-sub">Powertrain Diagnostics</div>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="images/car.jpg" alt="Vehicles" loading="lazy">
+                <div class="gallery-item-overlay">
+                    <div>
+                        <div class="gallery-item-label">Vehicle Platforms</div>
+                        <div class="gallery-item-sub">Passenger &amp; Heavy-Duty</div>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="images/microchip.jpg" alt="Microcontrollers" loading="lazy">
+                <div class="gallery-item-overlay">
+                    <div>
+                        <div class="gallery-item-label">Embedded Components</div>
+                        <div class="gallery-item-sub">Microcontrollers &amp; Sensors</div>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="images/dashboard.jpg" alt="Modern Vehicle" loading="lazy">
+                <div class="gallery-item-overlay">
+                    <div>
+                        <div class="gallery-item-label">Modern Automotive</div>
+                        <div class="gallery-item-sub">ADAS &amp; Vehicle Control</div>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="images/server-room.jpg" alt="Cloud Infrastructure" loading="lazy">
+                <div class="gallery-item-overlay">
+                    <div>
+                        <div class="gallery-item-label">Cloud Infrastructure</div>
+                        <div class="gallery-item-sub">AWS &amp; Azure DevOps</div>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="images/drone.jpg" alt="UAV Drone" loading="lazy">
+                <div class="gallery-item-overlay">
+                    <div>
+                        <div class="gallery-item-label">Autonomous Systems</div>
+                        <div class="gallery-item-sub">UAV Swarm Research</div>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="images/autonomous.jpg" alt="Autonomous Vehicle" loading="lazy">
+                <div class="gallery-item-overlay">
+                    <div>
+                        <div class="gallery-item-label">Smart Vehicles</div>
+                        <div class="gallery-item-sub">Connected Car Systems</div>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="images/assembly.jpg" alt="Vehicle Assembly Line" loading="lazy">
+                <div class="gallery-item-overlay">
+                    <div>
+                        <div class="gallery-item-label">Assembly Line</div>
+                        <div class="gallery-item-sub">End-of-Line Manufacturing</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">// About Me</span>
+                <h2 class="section-title">Building the Software Behind the Vehicles</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="about-grid">
+                <div class="about-visual reveal">
+                    <div class="about-image-wrapper">
+                        <img src="images/circuit-board.jpg" alt="ECU Circuit Board" loading="lazy">
+                        <div class="about-image-overlay"></div>
+                    </div>
+                    <div class="ecu-diagram">
+                        <div class="ecu-header">&#9656; CAN_BUS_NETWORK :: ACTIVE</div>
+                        <div class="ecu-nodes">
+                            <div class="ecu-node">
+                                <div class="ecu-node-icon">&#9881;</div>
+                                <div class="ecu-node-label">Engine ECU</div>
+                            </div>
+                            <div class="ecu-node">
+                                <div class="ecu-node-icon">&#128752;</div>
+                                <div class="ecu-node-label">Brake ECU</div>
+                            </div>
+                            <div class="ecu-node">
+                                <div class="ecu-node-icon">&#128225;</div>
+                                <div class="ecu-node-label">Transmission</div>
+                            </div>
+                            <div class="ecu-node">
+                                <div class="ecu-node-icon">&#128737;</div>
+                                <div class="ecu-node-label">ADAS Module</div>
+                            </div>
+                        </div>
+                        <div class="ecu-bus-label">CAN HIGH / CAN LOW &bull; 500 kbps</div>
+                    </div>
+                </div>
+                <div class="about-text reveal">
+                    <h3>Where Automotive Meets Software Engineering</h3>
+                    <p>
+                        I'm a Software Engineer based in Dublin, Ohio, with a Master's in Computer Science (GPA: 3.70) from the
+                        University of Dayton and 3+ years of hands-on experience developing diagnostic and manufacturing software
+                        for the automotive industry. My day-to-day involves writing Java-based systems that communicate with
+                        vehicle ECUs using protocols like UDS, J1939, and CAN.
+                    </p>
+                    <p>
+                        From End-of-Line testing on assembly floors to cloud infrastructure powering SaaS platforms,
+                        I bridge the gap between embedded vehicle systems and modern software practices. I'm also a 2x published
+                        researcher with work in UAV swarm systems and IoT devices.
+                    </p>
+                    <div class="about-highlights">
+                        <div class="highlight-item"><span class="highlight-dot"></span>UDS &amp; J1939 Protocols</div>
+                        <div class="highlight-item"><span class="highlight-dot"></span>ECU Flashing &amp; Diagnostics</div>
+                        <div class="highlight-item"><span class="highlight-dot"></span>JavaFX UI Modernization</div>
+                        <div class="highlight-item"><span class="highlight-dot"></span>Cloud &amp; DevOps (AWS/Azure)</div>
+                        <div class="highlight-item"><span class="highlight-dot"></span>End-of-Line Manufacturing</div>
+                        <div class="highlight-item"><span class="highlight-dot"></span>2x Published Researcher</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills" id="skills">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">// Tech Stack</span>
+                <h2 class="section-title">Skills &amp; Expertise</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-category reveal">
+                    <div class="skill-cat-icon">&#128187;</div>
+                    <div class="skill-cat-title">Languages &amp; Frameworks</div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Java</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">C</span>
+                        <span class="skill-tag">C++</span>
+                        <span class="skill-tag">JavaFX</span>
+                        <span class="skill-tag">Swing</span>
+                        <span class="skill-tag">Spring Boot</span>
+                        <span class="skill-tag">JUnit</span>
+                        <span class="skill-tag">ROS2</span>
+                    </div>
+                </div>
+                <div class="skill-category reveal">
+                    <div class="skill-cat-icon">&#128663;</div>
+                    <div class="skill-cat-title">Automotive &amp; Embedded</div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">UDS (ISO 14229)</span>
+                        <span class="skill-tag">SAE J1939</span>
+                        <span class="skill-tag">CAN</span>
+                        <span class="skill-tag">OBD-II</span>
+                        <span class="skill-tag">ECU Diagnostics</span>
+                        <span class="skill-tag">DTC Analysis</span>
+                        <span class="skill-tag">ADAS</span>
+                        <span class="skill-tag">Vector CANoe</span>
+                        <span class="skill-tag">CANalyzer</span>
+                    </div>
+                </div>
+                <div class="skill-category reveal">
+                    <div class="skill-cat-icon">&#9729;</div>
+                    <div class="skill-cat-title">Cloud, DevOps &amp; Databases</div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">AWS</span>
+                        <span class="skill-tag">Azure</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">Kubernetes</span>
+                        <span class="skill-tag">Terraform</span>
+                        <span class="skill-tag">Jenkins</span>
+                        <span class="skill-tag">CI/CD</span>
+                        <span class="skill-tag">MySQL</span>
+                        <span class="skill-tag">PostgreSQL</span>
+                        <span class="skill-tag">MongoDB</span>
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">Maven</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Certifications -->
+            <div class="cert-badges reveal">
+                <div class="cert-badge">
+                    <div class="cert-icon">&#9749;</div>
+                    <div class="cert-info">
+                        <div class="cert-name">Java Certified Foundations Associate</div>
+                        <div class="cert-org">Oracle</div>
+                    </div>
+                </div>
+                <div class="cert-badge">
+                    <div class="cert-icon">&#9729;</div>
+                    <div class="cert-info">
+                        <div class="cert-name">AWS Solutions Architect - Associate</div>
+                        <div class="cert-org">Amazon Web Services</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="experience" id="experience">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">// Career Path</span>
+                <h2 class="section-title">Work Experience</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="timeline">
+                <!-- UST -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <img src="images/engine.jpg" alt="Automotive Engineering" class="timeline-image" loading="lazy">
+                        <div class="timeline-header">
+                            <div class="timeline-role">Developer II - Software Engineering</div>
+                            <div class="timeline-date">Jun 2023 - Present</div>
+                        </div>
+                        <div class="timeline-company">UST</div>
+                        <div class="timeline-location">Springfield, Ohio</div>
+                        <div class="timeline-tech">
+                            <span>Java</span><span>CAN</span><span>J1939</span><span>UDS</span><span>Azure</span><span>JavaFX</span>
+                        </div>
+                        <ul class="timeline-points">
+                            <li>Developed automotive diagnostic software using UDS (ISO 14229) and SAE J1939 over CAN, validating ECUs across passenger and heavy-duty vehicle platforms in EOL manufacturing.</li>
+                            <li>Implemented core UDS services including Diagnostic Session Control, Security Access, DTC Read/Clear, and Read/Write Data by Identifier for 20+ ECUs, achieving 25% improvement in test coverage.</li>
+                            <li>Designed ECU flashing and reprogramming workflows using UDS flashing sequence, enabling secure firmware programming and calibration validation.</li>
+                            <li>Standardized J1939 PGN/SPN signal mapping and decoding frameworks, reducing cross-platform validation effort by 30%.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Devoir -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <img src="images/server-room.jpg" alt="Cloud Infrastructure" class="timeline-image" loading="lazy">
+                        <div class="timeline-header">
+                            <div class="timeline-role">Junior DevOps Engineer</div>
+                            <div class="timeline-date">Jan 2023 - Jun 2023</div>
+                        </div>
+                        <div class="timeline-company">Devoir Software Solutions</div>
+                        <div class="timeline-location">Columbus, Ohio</div>
+                        <div class="timeline-tech">
+                            <span>AWS</span><span>Docker</span><span>Kubernetes</span><span>Spring Boot</span><span>MySQL</span><span>Terraform</span>
+                        </div>
+                        <ul class="timeline-points">
+                            <li>Developed and maintained a cloud-based SaaS platform using Java, Spring Boot, and MySQL, improving scalability and deployment consistency.</li>
+                            <li>Designed and optimized CI/CD pipelines with Docker and Kubernetes, reducing environment setup time by 30%.</li>
+                            <li>Automated cloud infrastructure provisioning using Terraform across AWS and Azure.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- UDRI -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <img src="images/drone.jpg" alt="UAV Autonomous Systems" class="timeline-image" loading="lazy">
+                        <div class="timeline-header">
+                            <div class="timeline-role">Software Developer, Intern</div>
+                            <div class="timeline-date">Nov 2021 - Dec 2022</div>
+                        </div>
+                        <div class="timeline-company">University of Dayton Research Institute</div>
+                        <div class="timeline-location">Dayton, Ohio</div>
+                        <div class="timeline-tech">
+                            <span>Python</span><span>PX4</span><span>Linux</span><span>ROS2</span><span>RTOS</span>
+                        </div>
+                        <ul class="timeline-points">
+                            <li>Contributed to a distributed system for coordinating UAVs and rovers, enabling seamless autonomous operation and communication.</li>
+                            <li>Integrated a Hardware-in-the-Loop (HIL) Simulation Platform using Linux OS and PX4 Software Stack.</li>
+                            <li>Published: <em>"A Distributed Hardware-in-the-Loop Simulation Testbed for Swarms of Small Autonomous Vehicles"</em></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects" id="projects">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">// Featured Work</span>
+                <h2 class="section-title">Projects</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="projects-grid">
+                <!-- Brake Pressure Tool -->
+                <div class="project-card reveal">
+                    <div class="project-visual project-visual-bp">
+                        <img src="images/dashboard.jpg" alt="Vehicle Diagnostics" loading="lazy">
+                        <svg class="project-svg" viewBox="0 0 480 200" preserveAspectRatio="none" style="position:relative;z-index:1;">
+                            <!-- Grid lines -->
+                            <line x1="0" y1="50" x2="480" y2="50" stroke="rgba(0,212,255,0.05)" stroke-width="1"/>
+                            <line x1="0" y1="100" x2="480" y2="100" stroke="rgba(0,212,255,0.08)" stroke-width="1"/>
+                            <line x1="0" y1="150" x2="480" y2="150" stroke="rgba(0,212,255,0.05)" stroke-width="1"/>
+                            <!-- Animated signal waves -->
+                            <path d="M0 100 Q30 60 60 100 T120 100 T180 100 T240 100 T300 100 T360 100 T420 100 T480 100" fill="none" stroke="rgba(0,212,255,0.15)" stroke-width="1.5">
+                                <animate attributeName="d"
+                                    values="M0 100 Q30 60 60 100 T120 100 T180 100 T240 100 T300 100 T360 100 T420 100 T480 100;
+                                            M0 100 Q30 130 60 100 T120 100 T180 100 T240 100 T300 100 T360 100 T420 100 T480 100;
+                                            M0 100 Q30 60 60 100 T120 100 T180 100 T240 100 T300 100 T360 100 T420 100 T480 100"
+                                    dur="4s" repeatCount="indefinite"/>
+                            </path>
+                            <path d="M0 100 Q45 40 90 100 T180 100 T270 100 T360 100 T450 100" fill="none" stroke="var(--accent)" stroke-width="2" opacity="0.6">
+                                <animate attributeName="d"
+                                    values="M0 100 Q45 40 90 100 T180 100 T270 100 T360 100 T450 100;
+                                            M0 100 Q45 160 90 100 T180 100 T270 100 T360 100 T450 100;
+                                            M0 100 Q45 40 90 100 T180 100 T270 100 T360 100 T450 100"
+                                    dur="3s" repeatCount="indefinite"/>
+                            </path>
+                            <!-- Pressure reading markers -->
+                            <circle cx="120" cy="100" r="3" fill="var(--accent)" opacity="0.8">
+                                <animate attributeName="cy" values="100;70;100;130;100" dur="3s" repeatCount="indefinite"/>
+                            </circle>
+                            <circle cx="240" cy="100" r="3" fill="var(--accent)" opacity="0.8">
+                                <animate attributeName="cy" values="100;130;100;70;100" dur="3s" repeatCount="indefinite"/>
+                            </circle>
+                            <circle cx="360" cy="100" r="3" fill="var(--accent)" opacity="0.8">
+                                <animate attributeName="cy" values="100;80;100;120;100" dur="3s" repeatCount="indefinite"/>
+                            </circle>
+                            <!-- Labels -->
+                            <text x="20" y="25" fill="rgba(0,212,255,0.4)" font-size="10" font-family="JetBrains Mono, monospace">BRAKE_PRESSURE_kPa</text>
+                            <text x="380" y="25" fill="rgba(0,255,136,0.4)" font-size="10" font-family="JetBrains Mono, monospace">PASS</text>
+                            <rect x="370" y="14" width="45" height="16" rx="3" fill="none" stroke="rgba(0,255,136,0.3)" stroke-width="1"/>
+                        </svg>
+                    </div>
+                    <div class="project-body">
+                        <h3 class="project-title">Brake Pressure Validation Tool</h3>
+                        <p class="project-desc">
+                            Java-based diagnostic application that acquires and analyzes brake pressure sensor data using
+                            OBD-II and CAN bus. Features real-time signal processing and automated pass/fail validation
+                            for end-of-line quality checks and safety compliance.
+                        </p>
+                        <div class="project-tags">
+                            <span>Java</span><span>OBD-II</span><span>CAN Bus</span><span>Netbridge</span><span>Signal Processing</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Unified ECU Framework -->
+                <div class="project-card reveal">
+                    <div class="project-visual project-visual-ecu">
+                        <img src="images/microchip.jpg" alt="ECU Components" loading="lazy">
+                        <svg class="project-svg" viewBox="0 0 480 200" style="position:relative;z-index:1;">
+                            <!-- Central hub -->
+                            <circle cx="240" cy="100" r="20" fill="none" stroke="var(--accent-2)" stroke-width="2" opacity="0.6">
+                                <animate attributeName="r" values="18;22;18" dur="3s" repeatCount="indefinite"/>
+                            </circle>
+                            <text x="240" y="104" text-anchor="middle" fill="var(--accent-2)" font-size="9" font-family="JetBrains Mono, monospace">CORE</text>
+
+                            <!-- ECU nodes around -->
+                            <circle cx="100" cy="50" r="5" fill="var(--accent-2)" opacity="0.7">
+                                <animate attributeName="r" values="4;6;4" dur="2s" repeatCount="indefinite"/>
+                            </circle>
+                            <line x1="105" y1="53" x2="222" y2="90" stroke="rgba(123,47,255,0.25)" stroke-width="1">
+                                <animate attributeName="opacity" values="0.2;0.6;0.2" dur="3s" repeatCount="indefinite"/>
+                            </line>
+                            <text x="100" y="40" text-anchor="middle" fill="rgba(123,47,255,0.5)" font-size="8" font-family="JetBrains Mono, monospace">ECU_01</text>
+
+                            <circle cx="380" cy="50" r="5" fill="var(--accent-2)" opacity="0.7">
+                                <animate attributeName="r" values="4;6;4" dur="2.2s" repeatCount="indefinite"/>
+                            </circle>
+                            <line x1="375" y1="53" x2="258" y2="90" stroke="rgba(123,47,255,0.25)" stroke-width="1">
+                                <animate attributeName="opacity" values="0.2;0.6;0.2" dur="3.2s" repeatCount="indefinite"/>
+                            </line>
+                            <text x="380" y="40" text-anchor="middle" fill="rgba(123,47,255,0.5)" font-size="8" font-family="JetBrains Mono, monospace">ECU_02</text>
+
+                            <circle cx="80" cy="140" r="5" fill="var(--accent-2)" opacity="0.7">
+                                <animate attributeName="r" values="4;6;4" dur="2.5s" repeatCount="indefinite"/>
+                            </circle>
+                            <line x1="85" y1="138" x2="222" y2="108" stroke="rgba(123,47,255,0.25)" stroke-width="1">
+                                <animate attributeName="opacity" values="0.2;0.6;0.2" dur="2.8s" repeatCount="indefinite"/>
+                            </line>
+                            <text x="80" y="160" text-anchor="middle" fill="rgba(123,47,255,0.5)" font-size="8" font-family="JetBrains Mono, monospace">ECU_03</text>
+
+                            <circle cx="400" cy="140" r="5" fill="var(--accent-2)" opacity="0.7">
+                                <animate attributeName="r" values="4;6;4" dur="1.8s" repeatCount="indefinite"/>
+                            </circle>
+                            <line x1="395" y1="138" x2="258" y2="108" stroke="rgba(123,47,255,0.25)" stroke-width="1">
+                                <animate attributeName="opacity" values="0.2;0.6;0.2" dur="3.5s" repeatCount="indefinite"/>
+                            </line>
+                            <text x="400" y="160" text-anchor="middle" fill="rgba(123,47,255,0.5)" font-size="8" font-family="JetBrains Mono, monospace">ECU_04</text>
+
+                            <circle cx="170" cy="170" r="5" fill="var(--accent-2)" opacity="0.7">
+                                <animate attributeName="r" values="4;6;4" dur="2.1s" repeatCount="indefinite"/>
+                            </circle>
+                            <line x1="173" y1="165" x2="232" y2="118" stroke="rgba(123,47,255,0.25)" stroke-width="1">
+                                <animate attributeName="opacity" values="0.2;0.6;0.2" dur="2.5s" repeatCount="indefinite"/>
+                            </line>
+                            <text x="170" y="187" text-anchor="middle" fill="rgba(123,47,255,0.5)" font-size="8" font-family="JetBrains Mono, monospace">ECU_05</text>
+
+                            <circle cx="310" cy="170" r="5" fill="var(--accent-2)" opacity="0.7">
+                                <animate attributeName="r" values="4;6;4" dur="2.4s" repeatCount="indefinite"/>
+                            </circle>
+                            <line x1="307" y1="165" x2="248" y2="118" stroke="rgba(123,47,255,0.25)" stroke-width="1">
+                                <animate attributeName="opacity" values="0.2;0.6;0.2" dur="3.1s" repeatCount="indefinite"/>
+                            </line>
+                            <text x="310" y="187" text-anchor="middle" fill="rgba(123,47,255,0.5)" font-size="8" font-family="JetBrains Mono, monospace">ECU_06</text>
+
+                            <!-- XML config indicator -->
+                            <text x="240" y="22" text-anchor="middle" fill="rgba(255,107,53,0.5)" font-size="9" font-family="JetBrains Mono, monospace">&lt;config-driven /&gt;</text>
+                        </svg>
+                    </div>
+                    <div class="project-body">
+                        <h3 class="project-title">Unified ECU Programming Framework</h3>
+                        <p class="project-desc">
+                            Config-driven ECU programming framework supporting 10+ ECUs through a single application.
+                            Replaced ECU-specific builds with XML-based dynamic configuration for PGNs, source addresses,
+                            and execution flags—dramatically improving reusability and deployment scalability.
+                        </p>
+                        <div class="project-tags">
+                            <span>Java</span><span>XML</span><span>UDS</span><span>J1939</span><span>ECU Flashing</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Projects -->
+            <h3 style="text-align:center; margin-top:3rem; font-size:1.1rem; color:var(--text-secondary); font-weight:600;" class="reveal">More Projects</h3>
+            <div class="projects-grid-small">
+                <div class="project-card-small reveal">
+                    <div class="project-small-icon">&#128295;</div>
+                    <div class="project-small-title">DTC Diagnostic Tool</div>
+                    <div class="project-small-date">Nov 2025</div>
+                    <div class="project-small-desc">JavaFX application for automotive ECU diagnostic trouble code reading, analysis, and clearing with real-time CAN bus communication.</div>
+                    <div class="project-small-tags">
+                        <span>JavaFX</span><span>CAN</span><span>UDS</span><span>DTC</span>
+                    </div>
+                </div>
+                <div class="project-card-small reveal">
+                    <div class="project-small-icon">&#9729;</div>
+                    <div class="project-small-title">Serverless Chat App</div>
+                    <div class="project-small-date">Sep - Dec 2022</div>
+                    <div class="project-small-desc">Real-time chat application built on AWS serverless architecture with Lambda, API Gateway, DynamoDB, and S3 for static hosting.</div>
+                    <div class="project-small-tags">
+                        <span>AWS Lambda</span><span>API Gateway</span><span>DynamoDB</span><span>S3</span>
+                    </div>
+                </div>
+                <div class="project-card-small reveal">
+                    <div class="project-small-icon">&#129302;</div>
+                    <div class="project-small-title">Sculpture Recognition</div>
+                    <div class="project-small-date">Aug - Dec 2021</div>
+                    <div class="project-small-desc">Deep learning CNN model for sculpture classification and recognition, deployed via Xcode and Unity for AR visualization.</div>
+                    <div class="project-small-tags">
+                        <span>CNN</span><span>Deep Learning</span><span>Xcode</span><span>Unity</span>
+                    </div>
+                </div>
+                <div class="project-card-small reveal">
+                    <div class="project-small-icon">&#128225;</div>
+                    <div class="project-small-title">Smart Mirror</div>
+                    <div class="project-small-date">Jul 2019 - Oct 2020</div>
+                    <div class="project-small-desc">IoT voice-assistant smart mirror displaying real-time weather, news, and calendar data. Published research paper on design and implementation.</div>
+                    <div class="project-small-tags">
+                        <span>IoT</span><span>Python</span><span>Raspberry Pi</span><span>Voice Assistant</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Publications -->
+            <div class="publication-card reveal">
+                <div class="pub-label">&#128220; Published Research</div>
+                <div class="pub-title">"A Distributed Hardware-in-the-Loop Simulation Testbed for Swarms of Small Autonomous Vehicles"</div>
+                <div class="pub-venue">AIAA AVIATION Forum, June 2022 &bull; University of Dayton Research Institute</div>
+            </div>
+            <div class="publication-card reveal">
+                <div class="pub-label">&#128220; Published Research</div>
+                <div class="pub-title">"Research and Analysis of Smart Mirror"</div>
+                <div class="pub-venue">International Research Journal of Engineering and Technology, Feb 2020 &bull; University of Mumbai</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section class="education" id="education">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">// Education</span>
+                <h2 class="section-title">Academic Background</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="edu-grid">
+                <div class="edu-card reveal">
+                    <div class="edu-degree">MS in Computer Science</div>
+                    <div class="edu-school">University of Dayton</div>
+                    <div class="edu-location">Dayton, OH</div>
+                    <div class="edu-date">Jan 2021 - Dec 2022</div>
+                    <div class="edu-gpa">GPA: 3.70 / 4.0</div>
+                    <div class="edu-coursework">
+                        <span>Algorithm Design</span>
+                        <span>Deep Learning</span>
+                        <span>Computer Vision</span>
+                        <span>DBMS</span>
+                        <span>Visual Computing</span>
+                        <span>Web Semantics</span>
+                    </div>
+                </div>
+                <div class="edu-card reveal">
+                    <div class="edu-degree">BE in Information Technology</div>
+                    <div class="edu-school">University of Mumbai</div>
+                    <div class="edu-location">Mumbai, India</div>
+                    <div class="edu-date">Aug 2016 - Oct 2020</div>
+                    <div class="edu-coursework">
+                        <span>Data Structures</span>
+                        <span>IoT Systems</span>
+                        <span>Data Science</span>
+                        <span>Networking</span>
+                        <span>Software Engineering</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Extras: Languages, Volunteer, Certifications -->
+    <section class="extras" id="extras">
+        <div class="container">
+            <div class="extras-grid">
+                <div class="extras-card reveal">
+                    <div class="extras-card-icon">&#127760;</div>
+                    <div class="extras-card-title">Languages</div>
+                    <div class="extras-item">English<br><span class="extras-item-sub">Professional Working</span></div>
+                    <div class="extras-item" style="margin-top:0.5rem;">Hindi<br><span class="extras-item-sub">Professional Working</span></div>
+                    <div class="extras-item" style="margin-top:0.5rem;">Marathi<br><span class="extras-item-sub">Native / Bilingual</span></div>
+                </div>
+                <div class="extras-card reveal">
+                    <div class="extras-card-icon">&#127942;</div>
+                    <div class="extras-card-title">Certifications</div>
+                    <div class="extras-item">AWS Solutions Architect<br><span class="extras-item-sub">Amazon Web Services &bull; 2023</span></div>
+                    <div class="extras-item" style="margin-top:0.5rem;">Java Foundations Associate<br><span class="extras-item-sub">Oracle &bull; 2024</span></div>
+                    <div class="extras-item" style="margin-top:0.5rem;">Docker, K8s, Terraform<br><span class="extras-item-sub">Udemy &bull; 2023</span></div>
+                    <div class="extras-item" style="margin-top:0.5rem;">Data Science in Python<br><span class="extras-item-sub">Coursera &bull; 2020</span></div>
+                </div>
+                <div class="extras-card reveal">
+                    <div class="extras-card-icon">&#129309;</div>
+                    <div class="extras-card-title">Volunteering</div>
+                    <div class="extras-item">Technical Team Member<br><span class="extras-item-sub">Computer Society of India</span></div>
+                    <div class="extras-item" style="margin-top:0.3rem;"><span class="extras-item-sub">Aug 2018 - Oct 2020</span></div>
+                    <div class="extras-item" style="margin-top:0.8rem; font-size:0.8rem; color:var(--text-muted);">Organized technical events, workshops, and hackathons for 200+ student members.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">// Get In Touch</span>
+                <h2 class="section-title">Let's Connect</h2>
+                <div class="section-line"></div>
+            </div>
+            <p class="contact-subtitle reveal">Interested in automotive software, embedded systems, or cloud infrastructure? Let's talk.</p>
+            <div class="contact-links reveal">
+                <a href="mailto:tjspatil2@gmail.com" class="contact-card">
+                    <div class="contact-icon">&#9993;</div>
+                    <div class="contact-info">
+                        <div class="contact-info-label">Email</div>
+                        <div class="contact-info-value">tjspatil2@gmail.com</div>
+                    </div>
+                </a>
+                <a href="tel:9373292713" class="contact-card">
+                    <div class="contact-icon">&#128222;</div>
+                    <div class="contact-info">
+                        <div class="contact-info-label">Phone</div>
+                        <div class="contact-info-value">937-329-2713</div>
+                    </div>
+                </a>
+                <a href="https://www.linkedin.com/in/tjspatil2/" target="_blank" class="contact-card">
+                    <div class="contact-icon">&#128101;</div>
+                    <div class="contact-info">
+                        <div class="contact-info-label">LinkedIn</div>
+                        <div class="contact-info-value">Tejas Patil</div>
+                    </div>
+                </a>
+                <a class="contact-card" style="cursor:default;">
+                    <div class="contact-icon">&#128205;</div>
+                    <div class="contact-info">
+                        <div class="contact-info-label">Location</div>
+                        <div class="contact-info-value">Dublin, Ohio</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 <span class="footer-code">Tejas Patil</span> &mdash; Built with precision, like good software.</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // ===== PARTICLE BACKGROUND =====
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.5;
+                this.opacity = Math.random() * 0.5 + 0.1;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+                    this.reset();
+                }
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(0, 212, 255, ${this.opacity})`;
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 80; i++) {
+            particles.push(new Particle());
+        }
+
+        function drawLines() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 150) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(0, 212, 255, ${0.06 * (1 - dist / 150)})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            drawLines();
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        // ===== CURSOR GLOW =====
+        const cursorGlow = document.getElementById('cursorGlow');
+        document.addEventListener('mousemove', (e) => {
+            cursorGlow.style.left = e.clientX + 'px';
+            cursorGlow.style.top = e.clientY + 'px';
+        });
+
+        // ===== NAVBAR SCROLL =====
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // ===== HAMBURGER =====
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        navLinks.querySelectorAll('a').forEach(a => {
+            a.addEventListener('click', () => navLinks.classList.remove('active'));
+        });
+
+        // ===== COUNTER ANIMATION =====
+        function animateCounters() {
+            document.querySelectorAll('.stat-number').forEach(counter => {
+                const target = +counter.dataset.count;
+                const suffix = target === 3 ? '+' : target === 20 ? '+' : '';
+                let current = 0;
+                const step = target / 40;
+                const timer = setInterval(() => {
+                    current += step;
+                    if (current >= target) {
+                        clearInterval(timer);
+                        counter.textContent = target + suffix;
+                    } else {
+                        counter.textContent = Math.floor(current) + suffix;
+                    }
+                }, 40);
+            });
+        }
+
+        // ===== SCROLL REVEAL =====
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        // Trigger counters when hero stats are visible
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const heroStats = document.querySelector('.hero-stats');
+        if (heroStats) statsObserver.observe(heroStats);
+
+        // ===== SMOOTH SCROLL FOR NAV LINKS =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
