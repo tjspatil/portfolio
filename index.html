@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tejas Patil | Software Engineer</title>
+    <title>Tejas Patil | Automotive Diagnostics Engineer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -1461,21 +1461,25 @@
         <div class="hero-content">
             <div class="hero-badge">
                 <span class="pulse-dot"></span>
-                Open to Opportunities
+                Seeking: Vehicle Diagnostics · EOL Test · Embedded SW
             </div>
             <h1 class="hero-name">
                 Tejas <span class="gradient-text">Patil</span>
             </h1>
             <p class="hero-tagline">
-                Software Engineer specializing in <strong style="color:var(--accent)">Automotive Diagnostics</strong>,
-                <strong style="color:var(--accent-2)">ECU Validation</strong> &amp;
-                <strong style="color:var(--accent-3)">Cloud Infrastructure</strong> &mdash;
+                Automotive Diagnostics Engineer specializing in <strong style="color:var(--accent)">UDS &amp; J1939</strong>,
+                <strong style="color:var(--accent-2)">EOL Test &amp; ECU Validation</strong> &amp;
+                <strong style="color:var(--accent-3)">CAN Bus Systems</strong> &mdash;
                 with 10+ projects &amp; 2 publications
             </p>
             <div class="hero-cta">
                 <a href="#contact" class="btn btn-primary">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
                     Get In Touch
+                </a>
+                <a href="resume.pdf" class="btn btn-outline" target="_blank" download>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    Download Resume
                 </a>
                 <a href="#experience" class="btn btn-outline">
                     View My Work
@@ -1769,12 +1773,17 @@
                         <span class="skill-tag">UDS (ISO 14229)</span>
                         <span class="skill-tag">SAE J1939</span>
                         <span class="skill-tag">CAN</span>
+                        <span class="skill-tag">ISO 15765 (CAN TP)</span>
                         <span class="skill-tag">OBD-II</span>
                         <span class="skill-tag">ECU Diagnostics</span>
                         <span class="skill-tag">DTC Analysis</span>
-                        <span class="skill-tag">ADAS</span>
                         <span class="skill-tag">Vector CANoe</span>
                         <span class="skill-tag">CANalyzer</span>
+                        <span class="skill-tag">CAPL Scripting</span>
+                        <span class="skill-tag">CANdb++ / DBC</span>
+                        <span class="skill-tag">LIN Bus</span>
+                        <span class="skill-tag">FMEA</span>
+                        <span class="skill-tag">ADAS</span>
                     </div>
                 </div>
                 <div class="skill-category reveal">
@@ -1838,13 +1847,13 @@
                         <div class="timeline-company">UST</div>
                         <div class="timeline-location">Springfield, Ohio</div>
                         <div class="timeline-tech">
-                            <span>Java</span><span>CAN</span><span>J1939</span><span>UDS</span><span>Azure</span><span>JavaFX</span>
+                            <span>Java</span><span>CAN</span><span>J1939</span><span>UDS</span><span>Vector CANoe</span><span>PEAK</span><span>Netbridge</span><span>Azure</span><span>JavaFX</span>
                         </div>
                         <ul class="timeline-points">
-                            <li>Developed automotive diagnostic software using UDS (ISO 14229) and SAE J1939 over CAN, validating ECUs across passenger and heavy-duty vehicle platforms in EOL manufacturing.</li>
-                            <li>Implemented core UDS services including Diagnostic Session Control, Security Access, DTC Read/Clear, and Read/Write Data by Identifier for 20+ ECUs, achieving 25% improvement in test coverage.</li>
-                            <li>Designed ECU flashing and reprogramming workflows using UDS flashing sequence, enabling secure firmware programming and calibration validation.</li>
-                            <li>Standardized J1939 PGN/SPN signal mapping and decoding frameworks, reducing cross-platform validation effort by 30%.</li>
+                            <li>Developed EOL diagnostic software using UDS (ISO 14229) and SAE J1939 over CAN for automated test bench stations, validating ECUs across passenger vehicles and Class 6-8 heavy-duty truck platforms in assembly-line manufacturing environments.</li>
+                            <li>Implemented core UDS services — Diagnostic Session Control (0x10), Security Access (0x27), DTC Read/Clear (0x19/0x14), and ReadDataByIdentifier (0x22) — for 20+ ECUs using Vector CANoe and PEAK CAN interfaces, achieving 25% improvement in test coverage.</li>
+                            <li>Designed ECU flashing and reprogramming workflows using UDS flashing sequence (0x34/0x36/0x37) via Netbridge hardware, enabling secure firmware programming, calibration validation, and post-flash DTC verification at EOL stations.</li>
+                            <li>Standardized J1939 PGN/SPN signal mapping and decoding frameworks with CANdb++ DBC file management, reducing cross-platform validation effort by 30% across truck ECU variants.</li>
                         </ul>
                     </div>
                 </div>
@@ -2049,6 +2058,15 @@
                     </div>
                 </div>
                 <div class="project-card-small reveal">
+                    <div class="project-small-icon">&#128225;</div>
+                    <div class="project-small-title">Smart Mirror</div>
+                    <div class="project-small-date">Jul 2019 - Oct 2020</div>
+                    <div class="project-small-desc">IoT voice-assistant smart mirror displaying real-time weather, news, and calendar data. Published research paper on design and implementation.</div>
+                    <div class="project-small-tags">
+                        <span>IoT</span><span>Python</span><span>Raspberry Pi</span><span>Voice Assistant</span>
+                    </div>
+                </div>
+                <div class="project-card-small reveal">
                     <div class="project-small-icon">&#9729;</div>
                     <div class="project-small-title">Serverless Chat App</div>
                     <div class="project-small-date">Sep - Dec 2022</div>
@@ -2066,26 +2084,17 @@
                         <span>CNN</span><span>Deep Learning</span><span>Xcode</span><span>Unity</span>
                     </div>
                 </div>
-                <div class="project-card-small reveal">
-                    <div class="project-small-icon">&#128225;</div>
-                    <div class="project-small-title">Smart Mirror</div>
-                    <div class="project-small-date">Jul 2019 - Oct 2020</div>
-                    <div class="project-small-desc">IoT voice-assistant smart mirror displaying real-time weather, news, and calendar data. Published research paper on design and implementation.</div>
-                    <div class="project-small-tags">
-                        <span>IoT</span><span>Python</span><span>Raspberry Pi</span><span>Voice Assistant</span>
-                    </div>
-                </div>
             </div>
 
             <!-- Publications -->
             <div class="publication-card reveal">
                 <div class="pub-label">&#128220; Published Research</div>
-                <div class="pub-title">"A Distributed Hardware-in-the-Loop Simulation Testbed for Swarms of Small Autonomous Vehicles"</div>
+                <div class="pub-title"><a href="https://arc.aiaa.org/doi/abs/10.2514/6.2022-4057" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-underline-offset:3px;">"A Distributed Hardware-in-the-Loop Simulation Testbed for Swarms of Small Autonomous Vehicles"</a></div>
                 <div class="pub-venue">AIAA AVIATION Forum, June 2022 &bull; University of Dayton Research Institute</div>
             </div>
             <div class="publication-card reveal">
                 <div class="pub-label">&#128220; Published Research</div>
-                <div class="pub-title">"Research and Analysis of Smart Mirror"</div>
+                <div class="pub-title"><a href="#" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-underline-offset:3px;">"Research and Analysis of Smart Mirror"</a></div>
                 <div class="pub-venue">International Research Journal of Engineering and Technology, Feb 2020 &bull; University of Mumbai</div>
             </div>
         </div>
@@ -2170,7 +2179,7 @@
                 <h2 class="section-title">Let's Connect</h2>
                 <div class="section-line"></div>
             </div>
-            <p class="contact-subtitle reveal">Interested in automotive software, embedded systems, or cloud infrastructure? Let's talk.</p>
+            <p class="contact-subtitle reveal">Interested in vehicle diagnostics, EOL test systems, embedded software, or ECU validation? Let's talk.</p>
             <div class="contact-links reveal">
                 <a href="mailto:tjspatil2@gmail.com" class="contact-card">
                     <div class="contact-icon">&#9993;</div>
@@ -2193,11 +2202,11 @@
                         <div class="contact-info-value">Tejas Patil</div>
                     </div>
                 </a>
-                <a class="contact-card" style="cursor:default;">
-                    <div class="contact-icon">&#128205;</div>
+                <a href="resume.pdf" class="contact-card" target="_blank" download>
+                    <div class="contact-icon">&#128196;</div>
                     <div class="contact-info">
-                        <div class="contact-info-label">Location</div>
-                        <div class="contact-info-value">Dublin, Ohio</div>
+                        <div class="contact-info-label">Resume</div>
+                        <div class="contact-info-value">Download PDF</div>
                     </div>
                 </a>
             </div>

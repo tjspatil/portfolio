@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:unsplash.com)",
+      "Bash(curl -sL -o /Users/tjspatil/VSC-Projects/Claude-Project/images/car.jpg -w \"%{http_code}\" \"https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=800&q=80\")",
+      "Bash(curl -sL -o /Users/tjspatil/VSC-Projects/Claude-Project/images/server-room.jpg -w \"%{http_code}\" \"https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80\")",
+      "Bash(git init)",
+      "Bash(git add index.html images/)"
+    ]
+  }
+}
